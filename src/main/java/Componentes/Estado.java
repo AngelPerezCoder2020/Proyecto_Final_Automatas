@@ -11,8 +11,8 @@ public class Estado {
         transiciones = new ArrayList<>();
         this.numero=numero;
     }   
-    public void addTransicion(char l, Estado d){
-        Transicion nuevo = new Transicion(l,d);
+    public void addTransicion(char l,Estado d){
+        Transicion nuevo = new Transicion(l,this,d);
         transiciones.add(nuevo);
     }
     public Transicion getTransicionUsada(){
@@ -26,5 +26,11 @@ public class Estado {
             }
         }
         return false;
+    }
+    public int getNumero(){
+        return numero;
+    }
+    public ArrayList<Transicion> getTransaccinoes(){
+        return transiciones;
     }
 }

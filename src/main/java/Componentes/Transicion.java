@@ -1,10 +1,12 @@
 package Componentes;
 
 public class Transicion {
-    private char letra;
-    private Estado destino;
-    public Transicion(char letra,Estado destino){
+    private final char letra;
+    private final Estado origen;
+    private final Estado destino;
+    public Transicion(char letra,Estado origen,Estado destino){
         this.letra=letra;
+        this.origen=origen;
         this.destino=destino;
     }
     public char getLetra(){
@@ -12,5 +14,8 @@ public class Transicion {
     }
     public Estado getDestino(){
         return destino;
+    }
+    public Estado getOrigen(){
+        return origen;
     }
 }

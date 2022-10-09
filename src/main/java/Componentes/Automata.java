@@ -3,6 +3,7 @@ package Componentes;
 import java.util.ArrayList;
 
 public class Automata {
+    private String nombre;
     private char[] palabra=null;
     private int contador = 0;
     private Estado estadoFinal;
@@ -10,13 +11,15 @@ public class Automata {
     private Estado estadoActual;
     private ArrayList<Estado> estados;
     
-    public Automata(){
+    public Automata(String nombre){
+        this.nombre=nombre;
         estados = new ArrayList<>();
         estadoActual = estadoInicial;
     }
     public void CrearEstado(){
-        Estado nuevo = new Estado(contador++);
+        Estado nuevo = new Estado(contador);
         estados.add(nuevo);
+        contador++;
     }
     public boolean ComprobarPalabra(String palabra){
         this.palabra=palabra.toCharArray();
@@ -48,5 +51,11 @@ public class Automata {
             return true;
         }
         return false;
+    }
+    public String getNombre(){
+        return nombre;
+    }
+    public ArrayList<Estado> getEstados(){
+        return estados;
     }
 }
