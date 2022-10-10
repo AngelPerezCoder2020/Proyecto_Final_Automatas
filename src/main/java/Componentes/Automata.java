@@ -43,10 +43,10 @@ public class Automata {
     }
     public boolean EstadosPrincipales(int y, int x){
         Estado existe = estados.get(x);
-        if(y==1&&existe!=null){
+        if(y==1){
             estadoInicial = existe;
             return true;
-        }else if(y==2&&existe!=null){
+        }else if(y==2){
             estadoFinal = existe;
             return true;
         }
@@ -57,5 +57,13 @@ public class Automata {
     }
     public ArrayList<Estado> getEstados(){
         return estados;
+    }
+    
+    public Estado getEstadoFinal() {
+        return estadoFinal;
+    }
+
+    public Estado getEstadoInicial() {
+        return estadoInicial;
     }
 }

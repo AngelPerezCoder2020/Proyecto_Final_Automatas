@@ -66,17 +66,20 @@ public class Main {
     }
     public static void automata(int x) throws IOException, InterruptedException{
         String op = "";
-        usando = automatas.get(x-1);
-        ArrayList<Estado> estados = usando.getEstados();
-        if(usando==null){
-            System.out.println("El Automata que usted ingreso no existe :)");
+        if(automatas.size()<x){
+            System.out.println("\nEl Automata que usted ingreso no existe :)");
             ent.nextLine();
+        }else if(x==0){
+            opc="0";
         }else{
+            usando = automatas.get(x-1);
+            ArrayList<Estado> estados = usando.getEstados();
             do{
                 cls();
                 System.out.println("\nUsted Esta Usando el automata Numero: "+x+", que va a hacer con el? \n\n"
-                    + "1. Ver los estados que tiene \n2.Ver las transiciones que tiene \n3. Crear un nuevo Estado "
-                    + "\n4. Crear una nueva transicion \n5. Probar una Palabra \n6. SALIR DE ESTA PESTAÑA");
+                    + "1. Ver los estados que tiene \n2. Ver las transiciones que tiene \n3. Crear un nuevo Estado "
+                    + "\n4. Crear una nueva transicion \n5. Probar una Palabra \n6. Establecer Estado Inicial"
+                        + "\n7. Establecer Estado Final \n8. SALIR DE ESTA PESATAÑA");
                 op = ent.nextLine();
                 switch(op){
                     case "1":
@@ -114,25 +117,37 @@ public class Main {
                                 crearTransicion(usando,letra,origen,destino);
                             }catch(Exception e){
                                 System.out.println("\nUsted a ingresado datos incorrectos...");
-                                ent.nextLine();
                             }
                         }else System.out.println("\nEn este automata aun no existe ningun estado, por tanto no puede crear transiciones");
+                        ent.nextLine();
                         break;
                     case"5":
-                        System.out.println("\n\nINGRESE LA PALABRA QUE DESEA QUE ESTE AUTOMATA VERIFIQUE: ");
-                        String palabra = ent.nextLine();
-                        Boolean res=usando.ComprobarPalabra(palabra);
-                        if(res)System.out.println("\nLa palabra: "+palabra+" fue calificada como CORRECTA por este Automata.");
-                        else System.out.println("\nLa palabra: "+palabra+" fue calificada como INCORRECTA por este Automata.");
+                        if(Listo(usando)){
+                            System.out.println("\n\nINGRESE LA PALABRA QUE DESEA QUE ESTE AUTOMATA VERIFIQUE: ");
+                            String palabra = ent.nextLine();
+                            Boolean res=usando.ComprobarPalabra(palabra);
+                            if(res)System.out.println("\nLa palabra: "+palabra+" fue calificada como CORRECTA por este Automata.");
+                            else System.out.println("\nLa palabra: "+palabra+" fue calificada como INCORRECTA por este Automata.");
+                        }else System.out.println("\nEl automata actual no cuenta con estado Inicial y/o Final");
+                        ent.nextLine();
                         break;
                     case"6":
+                        EstadosPrincipales(estados,1);
+                        ent.nextLine();
+                        break;
+                    case"7":
+                        EstadosPrincipales(estados,2);
+                        ent.nextLine();
+                        break;
+                    case"8":
                         break;
                     default:
                         System.out.println("\nEsa opcion no existe... :)¿?");
                         ent.nextLine();
                         break;
                 }            
-            }while(!op.equals("6"));
+            }while(!op.equals("8"));
+            opc="0";
         }
     }
     public static void MostrarEstados(ArrayList<Estado> estados){
@@ -150,5 +165,22 @@ public class Main {
         if(uno!=null&&dos!=null){
             usando.getEstados().get(origen).addTransicion(letra, estados.get(destino));
         }else System.out.println("\nLos estados que fueron ingresados son erroneos o no existen");
+    }
+    public static boolean Listo(Automata x){
+        if(x.getEstadoFinal()==null||x.getEstadoInicial()==null) return false;
+        return true;
+    }
+    public static void EstadosPrincipales(ArrayList<Estado> estados,int x){
+        String tipo="";
+        MostrarEstados(estados);
+        if(x==1)tipo="Inicial";
+        else tipo="Final";
+        System.out.println("\nSeleccione el estado que usted marcara como estado "+tipo+": ");
+        try{
+            int n = Integer.parseInt(ent.nextLine());
+            usando.EstadosPrincipales(x, n);
+        }catch(Exception e){
+            System.out.println("\nOcorrio un error al intentar llevar a cabo la instruccion con los datos ingresados.");
+        }
     }
 }
