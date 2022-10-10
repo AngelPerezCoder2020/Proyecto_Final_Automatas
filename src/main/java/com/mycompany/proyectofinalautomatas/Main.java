@@ -43,8 +43,8 @@ public class Main {
                             try{
                                 opci=Integer.parseInt(ent.nextLine());
                                 automata(opci);
-                            }catch(Exception e){
-                                System.out.println("\nLo que ustede ingreso no es una opcion valida :)");
+                            }catch(IOException | InterruptedException | NumberFormatException e){
+                                System.out.println(e.getMessage());
                                 ent.nextLine();
                             }
                         }
@@ -119,25 +119,22 @@ public class Main {
                                 System.out.println("\nUsted a ingresado datos incorrectos...");
                             }
                         }else System.out.println("\nEn este automata aun no existe ningun estado, por tanto no puede crear transiciones");
-                        ent.nextLine();
                         break;
                     case"5":
                         if(Listo(usando)){
                             System.out.println("\n\nINGRESE LA PALABRA QUE DESEA QUE ESTE AUTOMATA VERIFIQUE: ");
                             String palabra = ent.nextLine();
                             Boolean res=usando.ComprobarPalabra(palabra);
-                            if(res)System.out.println("\nLa palabra: "+palabra+" fue calificada como CORRECTA por este Automata.");
+                            if(res)System.out.println("\nLa palabra: "+palabra+" fue calificada como CORRECTA por este Automata."); 
                             else System.out.println("\nLa palabra: "+palabra+" fue calificada como INCORRECTA por este Automata.");
                         }else System.out.println("\nEl automata actual no cuenta con estado Inicial y/o Final");
                         ent.nextLine();
                         break;
                     case"6":
                         EstadosPrincipales(estados,1);
-                        ent.nextLine();
                         break;
                     case"7":
                         EstadosPrincipales(estados,2);
-                        ent.nextLine();
                         break;
                     case"8":
                         break;
@@ -162,9 +159,7 @@ public class Main {
         ArrayList<Estado> estados = usando.getEstados();
         Estado uno = estados.get(origen);
         Estado dos = estados.get(destino);
-        if(uno!=null&&dos!=null){
-            usando.getEstados().get(origen).addTransicion(letra, estados.get(destino));
-        }else System.out.println("\nLos estados que fueron ingresados son erroneos o no existen");
+        usando.getEstados().get(origen).addTransicion(letra, estados.get(destino));
     }
     public static boolean Listo(Automata x){
         if(x.getEstadoFinal()==null||x.getEstadoInicial()==null) return false;

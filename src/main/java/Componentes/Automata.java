@@ -1,6 +1,8 @@
 package Componentes;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Automata {
     private String nombre;
@@ -14,7 +16,6 @@ public class Automata {
     public Automata(String nombre){
         this.nombre=nombre;
         estados = new ArrayList<>();
-        estadoActual = estadoInicial;
     }
     public void CrearEstado(){
         Estado nuevo = new Estado(contador);
@@ -34,8 +35,10 @@ public class Automata {
             }
         }
         if(aceptada&&estadoFinal==estadoActual){
+            estadoActual=estadoInicial;
             return true;
         }
+        estadoActual=estadoInicial;
         return false;
     }
     public boolean ComprobarLetra(char w){
@@ -45,6 +48,7 @@ public class Automata {
         Estado existe = estados.get(x);
         if(y==1){
             estadoInicial = existe;
+            estadoActual = estadoInicial;
             return true;
         }else if(y==2){
             estadoFinal = existe;
