@@ -105,7 +105,7 @@ public class Main {
                         ent.nextLine();
                         break;
                     case"4":
-                        if(estados!=null){
+                        if(!estados.isEmpty()){
                             MostrarEstados(estados);
                             System.out.println("\nIngrese la informacion necesaria para crear una transicion, \nLetra: ");
                             char letra = ent.nextLine().charAt(0);
