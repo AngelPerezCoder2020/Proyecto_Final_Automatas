@@ -1,8 +1,8 @@
 package com.mycompany.proyectofinalautomatas;
 
-import Componentes.Automata;
-import Componentes.Estado;
-import Componentes.Transicion;
+import Componentes.Automata.Automata;
+import Componentes.Automata.Estado;
+import Componentes.Automata.Transicion;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;

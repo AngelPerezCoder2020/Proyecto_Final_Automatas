@@ -1,4 +1,4 @@
-package Componentes;
+package Componentes.GramaticaL;
 
 import java.util.ArrayList;
 

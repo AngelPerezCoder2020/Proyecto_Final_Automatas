@@ -1,7 +1,9 @@
 package com.mycompany.proyectofinalautomatas;
 
-import Componentes.Gramatica;
-import Componentes.Variable;
+import Componentes.GramaticaL.Gramatica;
+import Componentes.GramaticaL.NoTerminal;
+import Componentes.GramaticaL.Terminal;
+import Componentes.GramaticaL.Variable;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -63,7 +65,7 @@ public class GL {
                             + "\n\nIngrese el nombre y valor de su variable terminal (Tome en cuenta que solo puede ser una letra, si ingresa una palabra se tomara en cuenta la primer letra de esta.");
                     String n = ent.nextLine();
                     char m = n.charAt(0);
-                    Terminales.add(new Variable(new String(new char[]{m}),m,'T',null));
+                    Terminales.add(new Terminal(new String(new char[]{m}),m));
                     System.out.println("\nSu variable fue creada exitosamente!");
                     ent.nextLine();
                     break;
@@ -73,7 +75,7 @@ public class GL {
                         String op = "";
                         System.out.println("\nIngresar el nombre de su variable no Terminal: ");
                         String pa = ent.nextLine();
-                        Variable creando = new Variable(pa,'n','N',new ArrayList<ArrayList<Variable>>());
+                        NoTerminal creando = new NoTerminal(pa,new ArrayList<ArrayList<Variable>>());
                         NoTerminales.add(creando);
                         do{
                             cmd.cls();
@@ -119,7 +121,7 @@ public class GL {
             t++;
         }
     }
-    public static void CrearDerivacion(Variable v,String x){
+    public static void CrearDerivacion(NoTerminal v,String x){
         if(!x.equals("0")){
             x = x.replace(" ","");
             int y;

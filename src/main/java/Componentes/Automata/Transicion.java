@@ -1,4 +1,4 @@
-package Componentes;
+package Componentes.Automata;
 
 public class Transicion {
     private final char letra;

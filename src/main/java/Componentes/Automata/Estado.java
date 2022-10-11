@@ -1,4 +1,4 @@
-package Componentes;
+package Componentes.Automata;
 
 import java.util.ArrayList;
 
