@@ -34,6 +34,7 @@ public class GL {
                         for(int x=0;x<gramaticas.size();x++){
                             System.out.println("\n"+(x+1)+". "+gramaticas.get(x).getNombre());
                         }
+                        selecGramatica();
                     }
                     ent.nextLine();
                     break;
@@ -66,8 +67,10 @@ public class GL {
                             }
                         }while(op!=0||creando.getDerivaciones().isEmpty());
                         NoTerminales.add(creando);
-                    }else System.out.println("\nActualmente no existe ninguna variable en base a la cual pueda generar variables no Terminales");
-                    ent.nextLine();
+                    }else{
+                         System.out.println("\nActualmente no existe ninguna variable en base a la cual pueda generar variables no Terminales");
+                         ent.nextLine();
+                    }
                     break;
                 case"5":
                     System.out.println("\nCHAO! :)");
@@ -104,6 +107,32 @@ public class GL {
                 else reglas.add(NoTerminales.get(y-Terminales.size()));
             }
             v.getDerivaciones().add(reglas);
+        }
+    }
+    public static void selecGramatica(){
+        int op = 0;
+        System.out.println("\nIngrese un numero para usar una de las gramaticas disponibles: ");
+        try{
+            op = Integer.parseInt(ent.nextLine());
+            Gramatica usando = gramaticas.get(op);
+            do{
+                System.out.println("\nUsted esta usando la gramatica: "+usando.getNombre()+" Que va a hacer?"
+                        + "\n1. Generar Palabras\n2. SALIR DE AQUI");
+                op = Integer.parseInt(ent.nextLine());
+                if(op==1){
+                    System.out.println("\nIngrese cuantas palabras desea que esta gramatica genere:");
+                    int n = Integer.parseInt(ent.nextLine());
+                    for(int x=0;x<n;x++){
+                        System.out.println("\n"+(x+1)+" = "+usando.GenerarPalabra());
+                    }
+                }else if(op==2){
+                }else{
+                    System.out.println("\nhuh ?¿");
+                    ent.nextLine();
+                }
+            }while(op!=2);
+        }catch(Exception e){
+            System.out.println("\nLos datos ingresados son erroneos");
         }
     }
 }

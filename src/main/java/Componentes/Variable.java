@@ -27,7 +27,7 @@ public class Variable {
     }
     public String getDerivacion(){
         String res="";
-        ArrayList<Variable> u = derivaciones.get(generar.nextInt(derivaciones.size()-1));
+        ArrayList<Variable> u = derivaciones.get(generar.nextInt(derivaciones.size()));
         for(int y=0;y<u.size();y++){
             Variable s = u.get(y);
             if(s.getTipo()=='T'){ 
