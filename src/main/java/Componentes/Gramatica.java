@@ -21,4 +21,7 @@ public class Gramatica {
         }
         return palabra;
     }
+    public String getRegla(){
+        return regla.toString();
+    }
 }

@@ -25,8 +25,27 @@ public class GL {
             opc = ent.nextLine();
             switch(opc){
                 case"1":
+                    cmd.cls();
+                    int codigo = 0;
+                    if(!Terminales.isEmpty()){
+                        System.out.println("\nIngrese el nombre de su nueva gramatica:");
+                        String nom = ent.nextLine();
+                        MostrarVariables();
+                        System.out.println("\nCree su gramatica en base a las variable existentes (Solo debe ingresar numeros):");
+                        try{
+                            codigo = Integer.parseInt(ent.nextLine());
+                            gramaticas.add(new Gramatica(nom,CrearRegla(codigo)));
+                        }catch(Exception e){
+                            System.out.println("\nLa Informacion ingresada es invalida");
+                            ent.nextLine();
+                        }
+                    }else{ 
+                        System.out.println("\nAun no existen variables en base a las cuales usted pueda crear su Gramatica :)");
+                        ent.nextLine();
+                    }
                     break;
                 case"2":
+                    cmd.cls();
                     System.out.println("\nA continuacion se listan las gramaticas existentes: ");
                     if(gramaticas.isEmpty()){
                         System.out.println("\nUsted no ah creado gramaticas aun jeje");
@@ -39,6 +58,7 @@ public class GL {
                     ent.nextLine();
                     break;
                 case"3":
+                    cmd.cls();
                     System.out.println("\nIngrese la Informacion necesaria para crear una variable terminal..."
                             + "\n\nIngrese el nombre y valor de su variable terminal (Tome en cuenta que solo puede ser una letra, si ingresa una palabra se tomara en cuenta la primer letra de esta.");
                     String n = ent.nextLine();
@@ -48,6 +68,7 @@ public class GL {
                     ent.nextLine();
                     break;
                 case"4":
+                    cmd.cls();
                     if(!Terminales.isEmpty()){
                         int op = 0;
                         System.out.println("\nIngresar el nombre de su variable no Terminal: ");
@@ -98,7 +119,7 @@ public class GL {
     }
     public static void CrearDerivacion(Variable v,int x){
         if(x!=0){
-            int y = 0;
+            int y;
             char[] est = String.valueOf(x).toCharArray();
             ArrayList<Variable> reglas = new ArrayList<>();
             for(char w:est){
@@ -109,6 +130,17 @@ public class GL {
             v.getDerivaciones().add(reglas);
         }
     }
+    public static ArrayList<Variable> CrearRegla(int x){
+        int y;
+        ArrayList<Variable> regla = new ArrayList<>();
+        char[] est = String.valueOf(x).toCharArray();
+        for(char w:est){
+            y = Integer.parseInt(String.valueOf(w))-1;
+            if(y<Terminales.size())regla.add(Terminales.get(y));
+            else regla.add(NoTerminales.get(y-Terminales.size()));
+        }
+        return regla;
+    }
     public static void selecGramatica(){
         int op = 0;
         System.out.println("\nIngrese un numero para usar una de las gramaticas disponibles: ");
@@ -116,8 +148,9 @@ public class GL {
             op = Integer.parseInt(ent.nextLine());
             Gramatica usando = gramaticas.get(op);
             do{
+                cmd.cls();
                 System.out.println("\nUsted esta usando la gramatica: "+usando.getNombre()+" Que va a hacer?"
-                        + "\n1. Generar Palabras\n2. SALIR DE AQUI");
+                        + "\n1. Generar Palabras\n2. Ver Regla Raiz\n3. SALIR DE AQUI");
                 op = Integer.parseInt(ent.nextLine());
                 if(op==1){
                     System.out.println("\nIngrese cuantas palabras desea que esta gramatica genere:");
@@ -126,11 +159,14 @@ public class GL {
                         System.out.println("\n"+(x+1)+" = "+usando.GenerarPalabra());
                     }
                 }else if(op==2){
+                    System.out.println("\nLa regla Raiz de la Gramatica Seleccionada es: \n"+usando.getRegla());
+                    ent.nextLine();
+                }else if(op==3){
                 }else{
                     System.out.println("\nhuh ?¿");
                     ent.nextLine();
                 }
-            }while(op!=2);
+            }while(op!=3);
         }catch(Exception e){
             System.out.println("\nLos datos ingresados son erroneos");
         }
