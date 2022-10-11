@@ -15,9 +15,7 @@ public class Gramatica {
     public String GenerarPalabra(){
         String palabra = "";
         for(Variable x:regla){
-            if(x.getTipo()=='T'){
-                palabra+=x.getLetra();
-            }else palabra+=x.getDerivacion();
+            palabra+=x.getDerivacion();
         }
         return palabra;
     }

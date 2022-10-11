@@ -22,17 +22,15 @@ public class Variable {
     public char getTipo(){
         return tipo;
     }
-    public char getLetra(){
-        return letra;
-    }
     public String getDerivacion(){
         String res="";
-        ArrayList<Variable> u = derivaciones.get(generar.nextInt(derivaciones.size()));
-        for(int y=0;y<u.size();y++){
-            Variable s = u.get(y);
-            if(s.getTipo()=='T'){ 
-               res += String.valueOf(s.getLetra()); 
-            }else res += s.getDerivacion();
+        if(this.tipo=='T') res+=letra;
+        else{
+            ArrayList<Variable> u = derivaciones.get(generar.nextInt(derivaciones.size()));
+            for(int y=0;y<u.size();y++){
+                Variable s = u.get(y);
+                res += s.getDerivacion();
+            }
         }
         return res;
     }
