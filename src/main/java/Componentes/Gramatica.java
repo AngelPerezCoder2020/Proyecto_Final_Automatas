@@ -22,6 +22,10 @@ public class Gramatica {
         return palabra;
     }
     public String getRegla(){
-        return regla.toString();
+        String res = "";
+        for(Variable x:regla){
+            res+=" "+x.getNombre();
+        }
+        return res;
     }
 }

@@ -31,7 +31,7 @@ public class GL {
                         System.out.println("\nIngrese el nombre de su nueva gramatica:");
                         String nom = ent.nextLine();
                         MostrarVariables();
-                        System.out.println("\nCree su gramatica en base a las variable existentes (Solo debe ingresar numeros):");
+                        System.out.println("\nIngrese la Variable Raiz (S) de esta Gramatica (Solo debe ingresar numeros):");
                         try{
                             codigo = ent.nextLine();
                             gramaticas.add(new Gramatica(nom,CrearRegla(codigo)));
@@ -74,6 +74,7 @@ public class GL {
                         System.out.println("\nIngresar el nombre de su variable no Terminal: ");
                         String pa = ent.nextLine();
                         Variable creando = new Variable(pa,'n','N',new ArrayList<ArrayList<Variable>>());
+                        NoTerminales.add(creando);
                         do{
                             cmd.cls();
                             MostrarVariables();
@@ -89,7 +90,6 @@ public class GL {
                                 ent.nextLine();
                             }
                         }while(!op.equals("0")||creando.getDerivaciones().isEmpty());
-                        NoTerminales.add(creando);
                     }else{
                          System.out.println("\nActualmente no existe ninguna variable en base a la cual pueda generar variables no Terminales");
                          ent.nextLine();
@@ -122,9 +122,9 @@ public class GL {
     public static void CrearDerivacion(Variable v,String x){
         if(!x.equals("0")){
             x = x.replace(" ","");
-            int[] est = new int[x.length()];
             int y;
             String[] numeros = x.split(",");
+            int[] est = new int[numeros.length];
             for(int q=0;q<numeros.length;q++){
                 est[q]=Integer.parseInt(numeros[q]);
             }
@@ -139,9 +139,9 @@ public class GL {
     }
     public static ArrayList<Variable> CrearRegla(String x){
         x = x.replace(" ","");
-        int[] est = new int[x.length()];
         int y;
         String[] numeros = x.split(",");
+        int[] est = new int[numeros.length];
         for(int q=0;q<numeros.length;q++){
             est[q]=Integer.parseInt(numeros[q]);
         }
@@ -158,7 +158,7 @@ public class GL {
         System.out.println("\nIngrese un numero para usar una de las gramaticas disponibles: ");
         try{
             op = Integer.parseInt(ent.nextLine());
-            Gramatica usando = gramaticas.get(op);
+            Gramatica usando = gramaticas.get(op-1);
             do{
                 cmd.cls();
                 System.out.println("\nUsted esta usando la gramatica: "+usando.getNombre()+" Que va a hacer?"
@@ -170,6 +170,7 @@ public class GL {
                     for(int x=0;x<n;x++){
                         System.out.println("\n"+(x+1)+" = "+usando.GenerarPalabra());
                     }
+                    ent.nextLine();
                 }else if(op==2){
                     System.out.println("\nLa regla Raiz de la Gramatica Seleccionada es: \n"+usando.getRegla());
                     ent.nextLine();
