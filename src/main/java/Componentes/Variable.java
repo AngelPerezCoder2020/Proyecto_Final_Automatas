@@ -3,7 +3,7 @@ package Componentes;
 import java.util.ArrayList;
 import java.util.Random;
 
-public abstract class Variable {
+public class Variable {
     private final Random generar = new Random();
     private final String nombre;
     private final char tipo;
@@ -35,5 +35,8 @@ public abstract class Variable {
             }else res += s.getDerivacion();
         }
         return res;
+    }
+    public ArrayList<ArrayList<Variable>> getDerivaciones() {
+        return derivaciones;
     }
 }
