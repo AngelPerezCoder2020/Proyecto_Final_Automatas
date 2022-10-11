@@ -15,13 +15,13 @@ public class Main {
     
     public static void main(String[] args) throws IOException, InterruptedException{
         do{
-            cls();
-            System.out.println(" \nBienvenido a Mi Proyecto Final de Automatas!"
+            cmd.cls();
+            System.out.println(" \nBienvenido a mi Simulador de Automatas!"
                     + "\n\nQue desea Hacer?\n\n1. Crear Un Nuevo Automata\n2. Ver Automatas Existentes\n3. SALIR DEL PROGRAMA");
             opc = ent.nextLine();
             switch(opc){
                 case "1":
-                    cls();
+                    cmd.cls();
                     System.out.println("\nA continuacion escriba como se llamará su Automata Nuevo: \n");
                     automatas.add(new Automata(ent.nextLine()));
                     System.out.println("\n\nSu Automata Fue creado exitosamente! Puede Verlo y modificarlo en la Seccion de Automatas Existentes!");
@@ -30,7 +30,7 @@ public class Main {
                 case "2":
                     int opci=0;
                     do{
-                        cls();
+                        cmd.cls();
                         System.out.println("\nA continuacion se enlistan los automatas que existen actualmente: (Ingresa 0 para salir de esta ventana)\n\n");
                         if(automatas.isEmpty()){
                             System.out.println("Oups! No has creado ningun automata jeje");
@@ -61,9 +61,6 @@ public class Main {
             }
         }while(!opc.equals("3"));
     }
-    public static void cls() throws IOException, InterruptedException{
-        new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-    }
     public static void automata(int x) throws IOException, InterruptedException{
         String op = "";
         if(automatas.size()<x){
@@ -75,7 +72,7 @@ public class Main {
             usando = automatas.get(x-1);
             ArrayList<Estado> estados = usando.getEstados();
             do{
-                cls();
+                cmd.cls();
                 System.out.println("\nUsted Esta Usando el automata Numero: "+x+", que va a hacer con el? \n\n"
                     + "1. Ver los estados que tiene \n2. Ver las transiciones que tiene \n3. Crear un nuevo Estado "
                     + "\n4. Crear una nueva transicion \n5. Probar una Palabra \n6. Establecer Estado Inicial"
