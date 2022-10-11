@@ -26,14 +26,14 @@ public class GL {
             switch(opc){
                 case"1":
                     cmd.cls();
-                    int codigo = 0;
+                    String codigo = "";
                     if(!Terminales.isEmpty()){
                         System.out.println("\nIngrese el nombre de su nueva gramatica:");
                         String nom = ent.nextLine();
                         MostrarVariables();
                         System.out.println("\nCree su gramatica en base a las variable existentes (Solo debe ingresar numeros):");
                         try{
-                            codigo = Integer.parseInt(ent.nextLine());
+                            codigo = ent.nextLine();
                             gramaticas.add(new Gramatica(nom,CrearRegla(codigo)));
                         }catch(Exception e){
                             System.out.println("\nLa Informacion ingresada es invalida");
@@ -70,7 +70,7 @@ public class GL {
                 case"4":
                     cmd.cls();
                     if(!Terminales.isEmpty()){
-                        int op = 0;
+                        String op = "";
                         System.out.println("\nIngresar el nombre de su variable no Terminal: ");
                         String pa = ent.nextLine();
                         Variable creando = new Variable(pa,'n','N',new ArrayList<ArrayList<Variable>>());
@@ -79,14 +79,16 @@ public class GL {
                             MostrarVariables();
                             System.out.println("\nIngrese la informacion necesaria para crear su Variable No Terminal ("+pa+"): "
                                     + "(Solo debe ingresar numeros) (Ingrese 0 para salir de la creacion de su variable)"
-                                    + "\n(Su variable debe contener al menos una posible derivacion)");
+                                    + "\n(Su variable debe contener al menos una posible derivacion)"
+                                    + " (Separe los numero por comas)");
                             try{
-                                op = Integer.parseInt(ent.nextLine());
+                                op = ent.nextLine();
                                 CrearDerivacion(creando,op);
                             }catch(Exception e){
                                 System.out.println("\nOcurrio un error al realizar la accion con la informacion que usted ingreso...");
+                                ent.nextLine();
                             }
-                        }while(op!=0||creando.getDerivaciones().isEmpty());
+                        }while(!op.equals("0")||creando.getDerivaciones().isEmpty());
                         NoTerminales.add(creando);
                     }else{
                          System.out.println("\nActualmente no existe ninguna variable en base a la cual pueda generar variables no Terminales");
@@ -117,25 +119,35 @@ public class GL {
             t++;
         }
     }
-    public static void CrearDerivacion(Variable v,int x){
-        if(x!=0){
+    public static void CrearDerivacion(Variable v,String x){
+        if(!x.equals("0")){
+            x = x.replace(" ","");
+            int[] est = new int[x.length()];
             int y;
-            char[] est = String.valueOf(x).toCharArray();
+            String[] numeros = x.split(",");
+            for(int q=0;q<numeros.length;q++){
+                est[q]=Integer.parseInt(numeros[q]);
+            }
             ArrayList<Variable> reglas = new ArrayList<>();
-            for(char w:est){
-                y = Integer.parseInt(String.valueOf(w))-1;
+            for(int w:est){
+                y = w-1;
                 if(y<Terminales.size())reglas.add(Terminales.get(y));
                 else reglas.add(NoTerminales.get(y-Terminales.size()));
             }
             v.getDerivaciones().add(reglas);
         }
     }
-    public static ArrayList<Variable> CrearRegla(int x){
+    public static ArrayList<Variable> CrearRegla(String x){
+        x = x.replace(" ","");
+        int[] est = new int[x.length()];
         int y;
+        String[] numeros = x.split(",");
+        for(int q=0;q<numeros.length;q++){
+            est[q]=Integer.parseInt(numeros[q]);
+        }
         ArrayList<Variable> regla = new ArrayList<>();
-        char[] est = String.valueOf(x).toCharArray();
-        for(char w:est){
-            y = Integer.parseInt(String.valueOf(w))-1;
+        for(int w:est){
+            y = w-1;
             if(y<Terminales.size())regla.add(Terminales.get(y));
             else regla.add(NoTerminales.get(y-Terminales.size()));
         }
