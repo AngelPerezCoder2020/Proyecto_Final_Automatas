@@ -17,6 +17,7 @@ public class Gramatica {
         for(Variable x:regla){
             palabra+=x.getDerivacion();
         }
+        palabra=palabra.replace("?","");
         return palabra;
     }
     public String getRegla(){
