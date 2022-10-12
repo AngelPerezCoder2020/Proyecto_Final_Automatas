@@ -21,7 +21,7 @@ public class GL {
     public static void run() throws IOException, InterruptedException{
         do{
             cmd.cls();
-            System.out.println("\nBienvenido a mi Simulador de Gramatica Libre de Contexto :)!\n\nQue desea hacer?\n"
+            System.out.println("\nBienvenido a mi Simulador de Gramatica Libre de Contexto :)! (El Vacio en este programa se representa con el simbolo de interrogacion '?')\n\nQue desea hacer?\n"
                     + "1. Crear Nueva Gramatica \n2. Ver Gramaticas Existentes\n3. Crear Nueva Variable Terminal"
                     + "\n4. Crear Nueva Variable No Terminal \n5. SALIR DEL PROGRAMA");
             opc = ent.nextLine();

@@ -115,7 +115,10 @@ public class Main {
                             }catch(Exception e){
                                 System.out.println("\nUsted a ingresado datos incorrectos...");
                             }
-                        }else System.out.println("\nEn este automata aun no existe ningun estado, por tanto no puede crear transiciones");
+                        }else{
+                            System.out.println("\nEn este automata aun no existe ningun estado, por tanto no puede crear transiciones");
+                            ent.nextLine();
+                        } 
                         break;
                     case"5":
                         if(Listo(usando)){
